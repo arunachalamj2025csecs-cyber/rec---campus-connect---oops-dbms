@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REC CampusConnect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#7e00b7;--primary-2:#a109e8;--primary-soft:#f5d9ff;--sidebar:#625f8d;
+  --bg:#f7f9fb;--surface:#fff;--text:#191c1e;--muted:#6f6a74;--border:#e5e7eb;
+  --success:#17804a;--success-bg:#e9f7ef;--warning:#a46600;--warning-bg:#fff5dc;
+  --danger:#b42318;--danger-bg:#fff0ee;--info:#2457a6;--info-bg:#edf4ff;
+  --shadow:0 10px 30px rgba(31,18,45,.07);--radius:14px;
+}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}a{text-decoration:none;color:inherit}
+h1,h2,h3,h4{font-family:"Hanken Grotesk",Inter,sans-serif;margin:0}p{line-height:1.6}.hidden{display:none!important}
+.material-symbols-outlined{font-size:20px;vertical-align:middle}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;padding:11px 16px;font-weight:700;transition:.2s;border:1px solid transparent}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:#690099;transform:translateY(-1px)}
+.btn-light{background:#fff;border-color:var(--border);color:#343136}.btn-danger{background:var(--danger);color:#fff}
+.btn-sm{padding:8px 12px;font-size:13px}.btn-block{width:100%}
+.text-btn{background:none;color:var(--primary);font-weight:700;padding:0}.muted{color:var(--muted)}.mono{font-family:"JetBrains Mono",monospace}
+.toast{position:fixed;right:22px;bottom:22px;z-index:1000;background:#191c1e;color:#fff;padding:13px 16px;border-radius:10px;box-shadow:var(--shadow);max-width:380px}
+.toast.success{background:#146c43}.toast.error{background:#9e2118}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}.field label{font-size:13px;font-weight:700;color:#49434d}.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid #d9dce1;border-radius:9px;background:#fff;outline:none}.field textarea{min-height:120px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(126,0,183,.09)}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}.span-2{grid-column:span 2}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 2px 12px rgba(30,20,40,.025)}.card-pad{padding:20px}
+.badge{display:inline-flex;align-items:center;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;letter-spacing:.2px}.badge-open{background:var(--warning-bg);color:var(--warning)}.badge-progress{background:#efe7ff;color:#7040a5}.badge-resolved{background:var(--success-bg);color:var(--success)}.badge-draft{background:#f1f2f4;color:#5f6368}.badge-published{background:var(--success-bg);color:var(--success)}
+.app{display:none;min-height:100vh}.app.active{display:flex}.sidebar{position:fixed;inset:0 auto 0 0;width:238px;background:var(--sidebar);color:#fff;padding:18px 14px;display:flex;flex-direction:column;z-index:20}.brand{display:flex;align-items:center;gap:10px;padding:6px 9px 20px}.brand img{width:34px;height:34px;object-fit:contain;background:#fff;border-radius:50%}.brand strong{font-family:"Hanken Grotesk";font-size:14px}.brand small{display:block;opacity:.75;font-size:10px;margin-top:1px}.nav{display:flex;flex-direction:column;gap:5px}.nav button{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;color:#e9e8f2;background:transparent;border-radius:8px;text-align:left;font-size:13px}.nav button:hover,.nav button.active{background:var(--primary-2);color:#fff}.side-bottom{margin-top:auto}.side-bottom button{width:100%}.main{margin-left:238px;min-width:0;flex:1}.topbar{height:65px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:15}.top-title{font-size:14px;font-weight:800}.top-actions{display:flex;align-items:center;gap:14px}.avatar{width:35px;height:35px;border-radius:50%;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-weight:800;font-size:12px}.page{padding:28px;max-width:1450px;margin:auto}.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:22px}.page-head h1{font-size:28px}.page-head p{margin:5px 0 0;color:var(--muted);font-size:13px}.hero{background:linear-gradient(90deg,rgba(38,30,55,.9),rgba(74,35,95,.62)),url("assets/hero-bg.jpg") center/cover;border-radius:15px;color:#fff;padding:26px 28px;min-height:175px;display:flex;align-items:center;justify-content:space-between;gap:20px}.hero h1{font-size:28px}.hero p{max-width:620px;color:#eee;margin:8px 0 18px;font-size:13px}.hero .btn{background:var(--primary-2)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}.stat{padding:17px}.stat-top{display:flex;justify-content:space-between;align-items:center}.stat .icon{width:36px;height:36px;border-radius:9px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center}.stat strong{display:block;font-size:25px;margin-top:8px}.stat small{color:var(--muted);font-size:11px}
+.grid-2{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(280px,1fr);gap:18px}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.section-title h3{font-size:16px}.section-title button{font-size:12px}
+.complaint-row{padding:15px 0;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr auto;gap:12px}.complaint-row:first-child{border-top:0}.complaint-row h4{font-size:14px}.complaint-row p{font-size:12px;color:var(--muted);margin:5px 0}.row-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);flex-wrap:wrap}
+.event-item{padding:13px 0;border-top:1px solid var(--border);display:flex;gap:12px}.event-date{width:46px;height:48px;border:1px solid var(--border);border-radius:8px;text-align:center;overflow:hidden}.event-date b{display:block;background:var(--primary);color:#fff;font-size:10px;padding:3px}.event-date strong{display:block;font-size:17px;padding-top:4px}.event-item h4{font-size:13px}.event-item p{margin:3px 0;color:var(--muted);font-size:11px}
+.table-card{overflow:hidden}.table-toolbar{padding:15px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}.tabs{display:flex;gap:5px;flex-wrap:wrap}.tab{background:#f3f4f6;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:700;color:#555}.tab.active{background:var(--primary);color:#fff}.search{border:1px solid var(--border);border-radius:8px;padding:9px 11px;min-width:220px;outline:none}.list{padding:0 18px}.list-item{padding:16px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:18px;align-items:center}.list-item:last-child{border-bottom:0}.list-main{min-width:0}.list-main h4{font-size:14px;margin-bottom:5px}.list-main p{font-size:12px;color:var(--muted);margin:3px 0}.actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.empty{padding:60px 20px;text-align:center;color:var(--muted)}.empty .empty-icon{width:54px;height:54px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:#f1eef5;color:var(--primary)}.empty h3{font-size:16px;color:#3d3940;margin-bottom:5px}.empty p{font-size:12px;margin:0 auto 15px;max-width:420px}
+.event-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.event-card{overflow:hidden}.event-cover{height:145px;background:#f0eef2;display:flex;align-items:center;justify-content:center}.event-cover img{width:100%;height:100%;object-fit:cover}.event-cover span{color:var(--muted)}.event-body{padding:15px}.event-body h3{font-size:15px}.event-body p{font-size:12px;color:var(--muted);margin:5px 0}.event-actions{margin-top:12px;display:flex;gap:7px}
+.profile-grid{display:grid;grid-template-columns:300px 1fr;gap:18px}.profile-card{text-align:center;padding:26px}.profile-avatar{width:86px;height:86px;border-radius:50%;margin:0 auto 13px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;font-size:25px;font-weight:800}.profile-card h2{font-size:20px}.profile-card p{margin:5px 0;color:var(--muted);font-size:12px}.info-list{margin-top:20px;text-align:left}.info-list div{padding:11px 0;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:10px;font-size:12px}.info-list span{color:var(--muted)}.settings-section{padding:20px;border-bottom:1px solid var(--border)}.settings-section:last-child{border-bottom:0}.settings-section h3{font-size:15px;margin-bottom:12px}.toggle-row{display:flex;justify-content:space-between;gap:20px;padding:12px 0}.toggle-row p{margin:2px 0 0;color:var(--muted);font-size:11px}.switch{width:42px;height:23px;border-radius:999px;background:#d3d4d7;padding:3px;transition:.2s;flex:0 0 auto}.switch i{display:block;width:17px;height:17px;background:#fff;border-radius:50%;transition:.2s}.switch.on{background:var(--primary)}.switch.on i{transform:translateX(19px)}
+.auth{min-height:100vh;background:linear-gradient(120deg,#f6eafd,#fff 55%,#f7f9fb);display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden}.auth::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:rgba(126,0,183,.07);right:-180px;top:-170px}.auth-card{width:min(440px,100%);background:#fff;border:1px solid #ece7ee;border-radius:18px;box-shadow:0 20px 60px rgba(80,20,100,.12);padding:30px;position:relative}.auth-brand{text-align:center;margin-bottom:22px}.auth-brand img{width:54px;height:54px;object-fit:contain;margin-bottom:9px}.auth-brand h1{font-size:23px}.auth-brand p{font-size:12px;color:var(--muted);margin:4px 0}.auth-switch{text-align:center;font-size:12px;color:var(--muted);margin-top:15px}.auth-switch button{margin-left:4px}.auth-footer{text-align:center;font-size:10px;color:#aaa;margin-top:18px}
+.choice{max-width:760px}.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.choice-card{padding:24px;border:1px solid var(--border);border-radius:14px;background:#fff;text-align:left}.choice-card .choice-icon{width:44px;height:44px;border-radius:10px;background:var(--primary-soft);color:var(--primary);display:grid;place-items:center;margin-bottom:13px}.choice-card h3{font-size:17px}.choice-card p{font-size:12px;color:var(--muted);min-height:38px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(20,15,25,.55);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}.modal{width:min(650px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.25)}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:17px 20px;border-bottom:1px solid var(--border)}.modal-head h2{font-size:17px}.modal-body{padding:20px}.close{width:32px;height:32px;background:#f2f3f4;border-radius:50%;display:grid;place-items:center}.modal-foot{display:flex;justify-content:flex-end;gap:8px;padding:15px 20px;border-top:1px solid var(--border)}
+.detail-layout{display:grid;grid-template-columns:minmax(0,1.7fr) 330px;gap:18px}.detail-card{padding:20px}.detail-title{display:flex;justify-content:space-between;gap:15px;align-items:flex-start;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:16px}.detail-title h2{font-size:20px}.detail-copy{font-size:13px;color:#4f4b53;white-space:pre-wrap}.timeline{border-left:2px solid #e4d6e9;margin:10px 0 0 10px;padding-left:18px}.timeline-item{position:relative;margin:0 0 18px}.timeline-item::before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--primary);left:-24px;top:4px}.timeline-item strong{font-size:12px}.timeline-item p{font-size:11px;color:var(--muted);margin:3px 0}
+.file-box{border:1px dashed #cfc8d4;border-radius:10px;padding:18px;text-align:center;background:#faf9fb}.file-box input{max-width:100%;font-size:12px}
+.spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:1000px){.sidebar{width:205px}.main{margin-left:205px}.stats{grid-template-columns:repeat(2,1fr)}.event-grid{grid-template-columns:repeat(2,1fr)}.profile-grid,.detail-layout,.grid-2{grid-template-columns:1fr}}
+@media(max-width:760px){.sidebar{position:fixed;width:72px;padding:12px 9px}.brand{justify-content:center;padding:4px 0 16px}.brand div,.nav button span:last-child,.side-bottom .btn span:last-child{display:none}.nav button{justify-content:center;padding:11px 0}.main{margin-left:72px}.topbar{padding:0 15px}.page{padding:18px}.hero{padding:22px;min-height:auto}.hero .btn{display:none}.stats{gap:10px}.stat{padding:13px}.stat strong{font-size:21px}.event-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.span-2{grid-column:span 1}.table-toolbar{align-items:flex-start;flex-direction:column}.search{width:100%}.profile-grid{grid-template-columns:1fr}.choice-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.page-head{flex-direction:column}.page-head .btn{width:100%}.top-actions .top-title{display:none}.list-item{align-items:flex-start;flex-direction:column}.actions{justify-content:flex-start}.auth-card{padding:22px}.stats{grid-template-columns:1fr 1fr}}
+
+
+/* Responsive navigation and mobile layout */
+.mobile-menu{display:none;width:40px;height:40px;border:1px solid var(--border);background:#fff;color:var(--text);border-radius:10px;align-items:center;justify-content:center;flex:0 0 auto}
+.sidebar{transition:transform .25s ease,box-shadow .25s ease}
+.sidebar-backdrop{display:none}
+.top-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-actions{min-width:0}.top-actions .muted{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.page img{max-width:100%}.card,.hero,.event-card,.profile-card,.detail-card{min-width:0}
+.event-actions,.contact-actions,.profile-actions,.actions{flex-wrap:wrap}
+.table-card{width:100%}.list{min-width:0}
+
+@media (max-width:1100px){
+  .page{max-width:none}
+  .page-head h1{font-size:25px}
+  .grid-2{grid-template-columns:minmax(0,1.4fr) minmax(240px,1fr)}
+}
+@media (max-width:760px){
+  body{overflow-x:hidden}
+  .app.active{display:block}
+  .sidebar{width:min(285px,86vw);transform:translateX(-110%);padding:18px 14px;box-shadow:12px 0 35px rgba(20,15,30,.18);z-index:60}
+  .app.sidebar-open .sidebar{transform:translateX(0)}
+  .app.sidebar-open .sidebar-backdrop{display:block;position:fixed;inset:0;background:rgba(20,15,30,.42);z-index:50}
+  .app.sidebar-open{overflow:hidden}
+  .brand{justify-content:flex-start;padding:6px 9px 20px}
+  .brand div,.nav button span:last-child,.side-bottom .btn span:last-child{display:block}
+  .nav button{justify-content:flex-start;padding:11px 12px}
+  .main{margin-left:0;width:100%}
+  .topbar{height:60px;padding:0 12px;gap:10px}
+  .mobile-menu{display:inline-flex}
+  .top-title{font-size:14px;flex:1;min-width:0}
+  .top-actions{gap:8px}.top-actions .muted{display:none}
+  .avatar{width:36px;height:36px;flex:0 0 auto}
+  .page{padding:16px 12px 28px;width:100%;overflow:hidden}
+  .page-head{gap:12px;margin-bottom:16px}
+  .page-head h1{font-size:24px;line-height:1.15}
+  .page-head p{font-size:12px}
+  .hero{padding:20px 18px;border-radius:12px}
+  .hero h1{font-size:24px;line-height:1.15}
+  .hero p{font-size:12px;margin-bottom:14px}
+  .hero .btn{display:inline-flex}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}
+  .stat{padding:13px;border-radius:11px}.stat strong{font-size:20px}.stat small{font-size:10px;line-height:1.35}
+  .grid-2,.profile-grid,.detail-layout{grid-template-columns:1fr;gap:12px}
+  .card-pad{padding:15px}
+  .section-title{gap:10px;align-items:flex-start}.section-title h3{font-size:15px}
+  .complaint-row{grid-template-columns:1fr;gap:9px;padding:13px 0}.complaint-row .actions{justify-content:flex-start}
+  .event-grid{grid-template-columns:1fr;gap:12px}.event-cover{height:170px}
+  .event-actions .btn{flex:1;min-width:110px}
+  .form-grid{grid-template-columns:1fr;gap:0}.span-2{grid-column:auto}
+  .table-toolbar{padding:12px;gap:10px}.tabs{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}.tab{white-space:nowrap}.search{min-width:0;width:100%}
+  .list{padding:0 12px}.list-item{gap:10px;padding:14px 0}
+  .profile-card{padding:20px 15px}.profile-avatar{width:96px;height:96px}
+  .profile-actions{display:flex;flex-direction:column}.profile-actions .btn{width:100%}
+  .info-list div{display:flex;justify-content:space-between;gap:14px}.info-list b{text-align:right;overflow-wrap:anywhere}
+  .modal-backdrop{padding:8px}.modal{max-height:94vh;border-radius:12px}.modal-head{padding:14px}.modal-body{padding:14px}.detail-card{padding:15px}
+  .contact-ready{gap:12px}.contact-ready>div:first-child{min-width:0}.contact-actions{width:100%}.contact-actions .btn{flex:1;min-width:130px}
+  .toast{left:12px;right:12px;bottom:12px;max-width:none}
+  .choice-grid{grid-template-columns:1fr}.choice-card{padding:20px}
+}
+@media (max-width:480px){
+  .page{padding:14px 10px 24px}.topbar{padding:0 10px}
+  .page-head h1{font-size:22px}.hero{padding:18px 15px}.hero h1{font-size:22px}
+  .stats{grid-template-columns:1fr 1fr}.stat{padding:11px}.stat .icon{width:32px;height:32px}.stat strong{font-size:19px}
+  .btn{padding:10px 12px}.btn-sm{padding:8px 10px;font-size:12px}
+  .event-cover{height:145px}.event-body{padding:13px}
+  .field{margin-bottom:13px}.field input,.field select,.field textarea{padding:10px}
+  .modal-head h2{font-size:15px}.modal-body{padding:11px}
+  .loading-card{min-width:0;width:calc(100vw - 32px);padding:22px 18px}
+}
+
+/* REC loading screen and requested portal enhancements */
+.loading-screen{position:fixed;inset:0;z-index:300;background:linear-gradient(145deg,#f2f6fb 0%,#fff 48%,#e9eef6 100%);display:grid;place-items:center;transition:opacity .4s ease,visibility .4s ease}.loading-screen.is-hidden{opacity:0;visibility:hidden;pointer-events:none}.loading-card{text-align:center;min-width:245px;padding:26px 28px 24px;border-radius:26px;background:rgba(255,255,255,.86);box-shadow:0 22px 60px rgba(83,96,126,.17);border:1px solid rgba(255,255,255,.9)}.loading-rec{font:800 23px/1 "Hanken Grotesk",Inter,sans-serif;letter-spacing:.34em;color:#4232aa;margin-left:.34em;margin-bottom:14px}.loading-logo{width:142px;height:151px;margin:0 auto 16px;border-radius:25px;display:grid;place-items:center;background:#fff;box-shadow:0 12px 25px rgba(56,61,105,.12)}.loading-logo img{width:100%;height:100%;object-fit:contain;border-radius:25px}.loading-card p{margin:0 0 14px;color:#6f6a74;font-size:12px}.loading-track{height:4px;background:#e5e8f2;border-radius:999px;overflow:hidden}.loading-track span{display:block;height:100%;width:45%;background:linear-gradient(90deg,#4d32b8,#9e8cff);border-radius:inherit;animation:loadingMove 1.2s ease-in-out infinite}@keyframes loadingMove{0%{transform:translateX(-120%)}100%{transform:translateX(260%)}}.auth-divider{display:flex;align-items:center;gap:10px;margin:17px 0 12px;color:#aaa;font-size:11px}.auth-divider::before,.auth-divider::after{content:"";height:1px;background:var(--border);flex:1}.google-button{min-height:40px;display:grid;place-items:center}.google-fallback{font-weight:700}.google-mark{font-weight:800;font-size:18px;color:#4285f4}.auth-note{text-align:center;font-size:10px;color:#999;margin:8px 0 0}.spinner-dark{border-color:rgba(126,0,183,.22);border-top-color:var(--primary)}.profile-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}.profile-photo-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:16px}.profile-photo{width:118px;height:118px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 8px 24px rgba(40,30,60,.14);background:#f4f1f7}.profile-photo-fallback{width:118px;height:118px;border-radius:50%;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary);font-size:28px;font-weight:800}.photo-input{display:none}.photo-label{cursor:pointer}.avatar{overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.profile-readonly-note{display:flex;align-items:center;gap:6px;margin:15px 0 0;font-size:11px}.complaint-history{margin-top:18px}.history-count{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary)}.complaint-history .section-title p{margin:5px 0 0;font-size:11px}.history-card{border-top:1px solid var(--border);padding:16px 0}.history-card:first-child{border-top:0}.history-top{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.history-card h4{font-size:14px;margin:5px 0 7px}.history-card p{font-size:12px;color:var(--muted);margin:8px 0}.history-line{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 11px}.history-line span{background:#f8f5fa;border:1px solid #ece2f1;border-radius:7px;padding:6px 8px;font-size:10px;color:#5d5661}.history-line b{color:#423b47}.contact-note{display:flex;gap:8px;align-items:flex-start;background:#fff8e7;color:#77510a;border-radius:9px;padding:10px;margin-top:15px;font-size:11px;line-height:1.5}.contact-note .material-symbols-outlined{font-size:18px}.contact-ready{background:var(--success-bg);border-radius:10px;padding:12px;margin-top:15px}.contact-ready>div:first-child{display:flex;align-items:flex-start;gap:8px;color:var(--success)}.contact-ready p{font-size:10px;color:#4e765d;margin:2px 0 0}.contact-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.contact-actions .btn{background:#fff}.modal .detail-card .contact-note a{color:inherit}@media(max-width:520px){.loading-card{min-width:220px;padding:22px}.loading-logo{width:120px;height:128px}.history-top{flex-direction:column;gap:8px}}
+.text-brand-mark{width:54px;height:54px;border-radius:12px;background:#fff url("assets/rec-logo.jpg") center/contain no-repeat;color:transparent;display:grid;place-items:center;margin:0 auto 9px;font-size:0;overflow:hidden;border:1px solid #eee}.text-brand-mark-side{width:34px;height:34px;border-radius:8px;margin:0;flex:0 0 auto;font-size:0;border:0}.loading-rec-label{font:800 24px/1 "Hanken Grotesk",Inter,sans-serif;letter-spacing:.28em;color:#4232aa;margin-left:.28em;margin-bottom:14px}.loading-symbol{width:142px;height:151px;margin:0 auto 16px;border-radius:25px;display:grid;place-items:center;overflow:hidden;background:#fff;box-shadow:0 12px 25px rgba(56,61,105,.12)}.loading-symbol img{width:100%;height:100%;object-fit:cover;animation:none;transform-origin:center}@keyframes loaderRotate{to{transform:rotate(360deg)}}.loading-card p{margin:0 0 14px;color:#6f6a74;font-size:12px}.loading-symbol{width:142px;height:151px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#fff;box-shadow:0 12px 25px rgba(56,61,105,.12)}.loading-symbol img{width:100%;height:100%;object-fit:cover;clip-path:circle(47% at 50% 54%);animation:none;transform-origin:center}.loading-symbol::after{content:"";position:absolute;inset:0;pointer-events:none}.forgot-row{display:flex;justify-content:flex-end;margin:-4px 0 14px}.logout-btn{margin-top:8px;color:#ffd6d6!important}</style>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+<div id="loadingScreen" class="loading-screen" aria-label="Loading REC CampusConnect">
+  <div class="loading-card">
+    <div class="loading-rec-label">REC</div>
+    <div class="loading-symbol"><img src="assets/rec-logo.jpg" alt="REC logo"></div>
+    <p>Loading REC CampusConnect…</p>
+    <div class="loading-track"><span></span></div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+<!-- LOGIN / REGISTRATION -->
+<section id="authScreen" class="auth">
+  <div id="authCard" class="auth-card"></div>
+</section>
+
+<!-- STUDENT APP -->
+<div id="studentApp" class="app">
+  <aside class="sidebar" id="studentSidebar"></aside>
+  <div class="sidebar-backdrop" data-action="close-sidebar"></div>
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-menu" type="button" aria-label="Open navigation" data-action="toggle-sidebar"><span class="material-symbols-outlined">menu</span></button>
+      <div class="top-title" id="studentTopTitle">Dashboard</div>
+      <div class="top-actions"><span class="muted" id="studentUserName"></span><div class="avatar" id="studentAvatar">ST</div></div>
+    </header>
+    <div id="studentPage" class="page"></div>
+  </main>
+</div>
+
+<!-- ADMIN APP -->
+<div id="adminApp" class="app">
+  <aside class="sidebar" id="adminSidebar"></aside>
+  <div class="sidebar-backdrop" data-action="close-sidebar"></div>
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-menu" type="button" aria-label="Open navigation" data-action="toggle-sidebar"><span class="material-symbols-outlined">menu</span></button>
+      <div class="top-title" id="adminTopTitle">Dashboard</div>
+      <div class="top-actions"><span class="muted" id="adminUserName"></span><div class="avatar" id="adminAvatar">AD</div></div>
+    </header>
+    <div id="adminPage" class="page"></div>
+  </main>
+</div>
+
+<div id="modalRoot"></div>
+
+<script src="config.js"></script>
+<script>
+"use strict";
+
+/* =====================================================================
+   REC CampusConnect - browser code.
+   Every server call goes through api(). Each page is drawn by one render function.
+   Clicks are handled in one place (the ACTIONS table at the bottom of this script)
+   instead of inline onclick="..." attributes, which keeps the code safer and easier to follow.
+   ===================================================================== */
+
+const CONFIG = Object.assign(
+  { API_BASE_URL: "", GOOGLE_CLIENT_ID: "", ADMIN_CONTACT_EMAIL: "admin@rajalakshmi.edu.in" },
+  window.CAMPUS_CONFIG || {}
+);
+const SESSION_KEY = "recPortalSession";
+const state = {
+  session: null,
+  user: null,
+  route: "dashboard",
+  complaints: [],
+  events: [],
+  activeStatus: "all",
+  googleRole: "student",
+  profileEditing: false
+};
+
+/* ---------- small helpers ---------- */
+const $ = (selector) => document.querySelector(selector);
+const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+}[c]));
+const initials = (name) => String(name || "User").trim().split(/\s+/).map((part) => part[0] || "").join("").slice(0, 2).toUpperCase();
+const fmtDate = (value) => {
+  if (!value) return "—";
+  const d = new Date(value);
+  return isNaN(d) ? "—" : d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+};
+const fmtDateTime = (value) => {
+  if (!value) return "—";
+  const d = new Date(value);
+  return isNaN(d) ? "—" : d.toLocaleString("en-IN", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
+};
+function eventDateClient(value) {
+  if (!value) return null;
+  const text = String(value).trim();
+  let m = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  const d = new Date(text);
+  return isNaN(d) ? null : new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+function fmtEventDate(value) {
+  const d = eventDateClient(value);
+  return d ? d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—";
+}
+function startOfToday() {
+  const t = new Date();
+  return new Date(t.getFullYear(), t.getMonth(), t.getDate());
+}
+/** Turns a relative link from the API (e.g. /api/files/abc) into a full address. */
+function mediaUrl(path) {
+  if (!path) return "";
+  if (/^https?:\/\//i.test(path)) return path;
+  return apiBase() + path;
+}
+function apiBase() {
+  return String(CONFIG.API_BASE_URL || "").replace(/\/+$/, "");
+}
+function badgeClass(status) {
+  return status === "resolved" ? "badge-resolved" : status === "inprogress" ? "badge-progress" : "badge-open";
+}
+function labelStatus(status) {
+  return status === "inprogress" ? "In Progress" : status === "resolved" ? "Resolved" : "Open";
+}
+function scope() {
+  return state.user?.role === "admin" ? $("#adminPage") : $("#studentPage");
+}
+function fileToUpload(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve({ name: file.name, type: file.type, data: String(reader.result).split(",")[1] || "" });
+    reader.onerror = () => reject(new Error("Could not read the selected file."));
+    reader.readAsDataURL(file);
+  });
+}
+
+let toastTimer = null;
+function toast(message, type = "") {
+  const el = $("#toast");
+  el.textContent = message;
+  el.className = "toast " + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.add("hidden"), 3800);
+}
+
+function setLoading(button, loading) {
+  if (!button) return;
+  if (loading) {
+    button.dataset.old = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<span class="spinner"></span>';
+  } else {
+    button.disabled = false;
+    button.innerHTML = button.dataset.old || "Submit";
+  }
+}
+function showLoadingScreen() { $("#loadingScreen")?.classList.remove("is-hidden"); }
+function hideLoadingScreen() { $("#loadingScreen")?.classList.add("is-hidden"); }
+
+/* ---------- saved login (kept in this browser only) ---------- */
+function saveSession() {
+  try {
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ session: state.session, user: state.user }));
+  } catch (err) {
+    // Private browsing can block storage. The portal still works; the login just is not remembered.
+  }
+}
+function loadSession() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
+    if (saved && saved.session && saved.user) {
+      state.session = saved.session;
+      state.user = saved.user;
+      return true;
+    }
+  } catch (err) {
+    // A damaged value is ignored.
+  }
+  return false;
+}
+function clearSession() {
+  try { localStorage.removeItem(SESSION_KEY); } catch (err) { /* nothing to clear */ }
+  state.session = null;
+  state.user = null;
+  state.complaints = [];
+  state.events = [];
+}
+
+/* ---------- server calls ----------
+   Each action name maps to an HTTP method and a path on the Java backend.
+   The session token is sent in the Authorization header, not in the body. */
+const ROUTES = {
+  me:                { method: "GET",    path: () => "/api/users/me" },
+  registerStudent:   { method: "POST",   path: () => "/api/auth/register/student" },
+  registerAdmin:     { method: "POST",   path: () => "/api/auth/register/admin" },
+  login:             { method: "POST",   path: () => "/api/auth/login" },
+  googleLogin:       { method: "POST",   path: () => "/api/auth/google" },
+  logout:            { method: "POST",   path: () => "/api/auth/logout" },
+  dashboard:         { method: "GET",    path: () => "/api/dashboard" },
+  listComplaints:    { method: "GET",    path: (d) => "/api/complaints?status=" + encodeURIComponent(d.status || "all") },
+  createComplaint:   { method: "POST",   path: () => "/api/complaints" },
+  getComplaint:      { method: "GET",    path: (d) => "/api/complaints/" + encodeURIComponent(d.id) },
+  updateComplaint:   { method: "PUT",    path: (d) => "/api/complaints/" + encodeURIComponent(d.id) },
+  listEvents:        { method: "GET",    path: () => "/api/events" },
+  createEvent:       { method: "POST",   path: () => "/api/events" },
+  updateEvent:       { method: "PUT",    path: (d) => "/api/events/" + encodeURIComponent(d.event.id) },
+  deleteEvent:       { method: "DELETE", path: (d) => "/api/events/" + encodeURIComponent(d.id) },
+  updateProfile:     { method: "PUT",    path: () => "/api/users/me" },
+  updateSettings:    { method: "PUT",    path: () => "/api/users/me/settings" },
+  changePassword:    { method: "POST",   path: () => "/api/users/me/password" }
+};
+
+async function api(action, data = {}) {
+  const route = ROUTES[action];
+  if (!route) throw new Error("Unknown request: " + action);
+  const base = apiBase();
+  if (!base || base.includes("YOUR-BACKEND")) {
+    throw new Error("The server address is not set. Edit config.js and set API_BASE_URL.");
+  }
+  const { token, ...body } = data;
+  const headers = { Accept: "application/json" };
+  if (token) headers.Authorization = "Bearer " + token;
+  const options = { method: route.method, headers };
+  if (route.method !== "GET" && route.method !== "DELETE") {
+    headers["Content-Type"] = "application/json";
+    options.body = JSON.stringify(body);
+  }
+
+  let response;
+  try {
+    response = await fetch(base + route.path(data), options);
+  } catch (err) {
+    throw new Error("Cannot reach the server right now. Check your internet connection and try again.");
+  }
+  let json = null;
+  try { json = await response.json(); } catch (err) { json = null; }
+
+  if (!response.ok || !json || json.ok !== true) {
+    const error = new Error((json && json.message) || `Request failed (HTTP ${response.status}).`);
+    error.status = response.status;
+    if (response.status === 401 && token) handleSessionExpired();
+    throw error;
+  }
+  return json;
+}
+
+function handleSessionExpired() {
+  clearSession();
+  renderAuth("choice");
+  toast("Your session has expired. Please log in again.", "error");
+}
+
+/* ---------- login and registration screens ---------- */
+function renderAuth(mode = "choice") {
+  $("#studentApp").classList.remove("active");
+  $("#adminApp").classList.remove("active");
+  $("#studentPage").innerHTML = "";
+  $("#adminPage").innerHTML = "";
+  $("#authScreen").classList.remove("hidden");
+  closeSidebar();
+  closeModal();
+  const card = $("#authCard");
+
+  if (mode === "choice") {
+    card.innerHTML = `
+      <div class="auth-brand"><div class="text-brand-mark">REC</div><h1>REC CampusConnect</h1><p>Your Campus. Your Voice. One Connected Platform.</p></div>
+      <div class="choice-grid">
+        <div class="choice-card"><div class="choice-icon"><span class="material-symbols-outlined">school</span></div><h3>Student Portal</h3><p>Report campus problems, track complaints, view events and manage your account.</p><button type="button" class="btn btn-primary btn-block" data-action="show-auth" data-id="student-login">Student Login</button></div>
+        <div class="choice-card"><div class="choice-icon"><span class="material-symbols-outlined">admin_panel_settings</span></div><h3>Admin Portal</h3><p>Review student complaints, update ticket status and publish campus events.</p><button type="button" class="btn btn-primary btn-block" data-action="show-auth" data-id="admin-login">Admin Login</button></div>
+      </div>
+      <div class="auth-footer">REC CampusConnect • Institutional Portal</div>`;
+    return;
+  }
+
+  const isAdmin = mode.startsWith("admin");
+  const isReg = mode.endsWith("register");
+  state.googleRole = isAdmin ? "admin" : "student";
+  const showGoogle = !isReg;
+  const switchTarget = isAdmin ? (isReg ? "admin-login" : "admin-register") : (isReg ? "student-login" : "student-register");
+
+  card.innerHTML = `
+    <div class="auth-brand"><div class="text-brand-mark">REC</div><h1>${isAdmin ? "REC CampusConnect Administration" : "REC CampusConnect"}</h1><p>${isReg ? "Create your portal account" : "Welcome back. Sign in to continue."}</p></div>
+    <form id="authForm" novalidate>
+      ${isReg ? `<div class="form-grid">
+        <div class="field span-2"><label for="f-name">Full Name</label><input id="f-name" name="name" required autocomplete="name" placeholder="${isAdmin ? "Admin name" : "Student name"}"></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email" placeholder="${isAdmin ? "admin@rajalakshmi.edu.in" : "name@rajalakshmi.edu.in"}"></div>
+        <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" autocomplete="tel" placeholder="+91 98765 43210"></div>
+        ${isAdmin ? `<div class="field"><label for="f-key">Admin Registration Password</label><input id="f-key" name="adminKey" type="password" required placeholder="Required for admin registration"></div>
+        <div class="field"><label for="f-dept">Department</label><input id="f-dept" name="department" placeholder="Administration"></div>` : `<div class="field"><label for="f-roll">Roll / Register No.</label><input id="f-roll" name="rollNo" required placeholder="REC..."></div>
+        <div class="field"><label for="f-dept">Department</label><input id="f-dept" name="department" required placeholder="CSE"></div>
+        <div class="field"><label for="f-year">Year</label><select id="f-year" name="year"><option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option></select></div>`}
+        <div class="field"><label for="f-pass">Password</label><input id="f-pass" name="password" type="password" required minlength="6" autocomplete="new-password"></div>
+        <div class="field"><label for="f-pass2">Confirm Password</label><input id="f-pass2" name="confirmPassword" type="password" required minlength="6" autocomplete="new-password"></div>
+      </div>` : `<div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email" placeholder="Enter your email"></div>
+      <div class="field"><label for="f-pass">Password</label><input id="f-pass" name="password" type="password" required autocomplete="current-password" placeholder="Enter your password"></div>
+      <div class="forgot-row"><button type="button" class="text-btn" data-action="forgot-password">Forgot password?</button></div>`}
+      <button class="btn btn-primary btn-block" id="authSubmit" type="submit">${isReg ? "Create Account" : isAdmin ? "Admin Login" : "Login"}</button>
+    </form>
+    ${showGoogle ? `<div class="auth-divider"><span>or</span></div><div id="googleButton" class="google-button"></div><p class="auth-note">${isAdmin ? "Use your administrator Google account (it must be on the admin list)." : "Use your college Google account for quick sign-in."}</p>` : ""}
+    <div class="auth-switch">${isReg ? "Already have an account?" : "Don't have an account?"} <button type="button" class="text-btn" data-action="show-auth" data-id="${switchTarget}">${isReg ? "Login" : "Create account"}</button></div>
+    <div class="auth-switch"><button type="button" class="text-btn" data-action="show-auth" data-id="choice">← Back to portal selection</button></div>
+    <div class="auth-footer">REC CampusConnect • Secure institutional access</div>`;
+
+  $("#authForm").addEventListener("submit", (e) => handleAuthSubmit(e, isAdmin, isReg));
+  if (showGoogle) renderGoogleButton();
+}
+
+async function handleAuthSubmit(event, isAdmin, isReg) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const btn = $("#authSubmit");
+  setLoading(btn, true);
+  showLoadingScreen();
+  try {
+    const data = Object.fromEntries(new FormData(form).entries());
+    const role = isAdmin ? "admin" : "student";
+    if (isReg) {
+      if (data.password !== data.confirmPassword) throw new Error("Passwords do not match.");
+      await api(isAdmin ? "registerAdmin" : "registerStudent", { ...data, role });
+      toast("Account created. Please log in.", "success");
+      renderAuth(isAdmin ? "admin-login" : "student-login");
+      return;
+    }
+    const r = await api("login", { email: data.email, password: data.password, role });
+    state.session = r.session;
+    state.user = r.user;
+    saveSession();
+    toast("Login successful.", "success");
+    await startApp();
+  } catch (err) {
+    toast(err.message || "Unable to complete request.", "error");
+  } finally {
+    hideLoadingScreen();
+    setLoading(btn, false);
+  }
+}
+
+/* ---------- Google sign-in ---------- */
+function renderGoogleButton(attempt = 0) {
+  const slot = $("#googleButton");
+  if (!slot) return;
+  const clientId = CONFIG.GOOGLE_CLIENT_ID;
+  if (!clientId) {
+    slot.innerHTML = '<button type="button" class="btn btn-light btn-block google-fallback" data-action="google-not-set"><span class="google-mark">G</span>Continue with Google</button>';
+    return;
+  }
+  if (window.google?.accounts?.id) {
+    google.accounts.id.initialize({
+      client_id: clientId,
+      callback: handleGoogleCredential,
+      auto_select: false,
+      cancel_on_tap_outside: true
+    });
+    slot.innerHTML = "";
+    const width = Math.max(200, Math.min(360, Math.floor(slot.clientWidth) || 360));
+    google.accounts.id.renderButton(slot, { theme: "outline", size: "large", text: "continue_with", shape: "rectangular", width });
+    return;
+  }
+  if (attempt >= 30) {
+    slot.innerHTML = '<button type="button" class="btn btn-light btn-block google-fallback" disabled><span class="google-mark">G</span>Google sign-in could not load</button>';
+    return;
+  }
+  slot.innerHTML = '<button type="button" class="btn btn-light btn-block google-fallback" disabled><span class="google-mark">G</span>Loading Google sign-in…</button>';
+  window.setTimeout(() => renderGoogleButton(attempt + 1), 300);
+}
+
+async function handleGoogleCredential(response) {
+  if (!response?.credential) return;
+  showLoadingScreen();
+  try {
+    const r = await api("googleLogin", { credential: response.credential, role: state.googleRole });
+    state.session = r.session;
+    state.user = r.user;
+    saveSession();
+    toast("Signed in with Google.", "success");
+    await startApp();
+  } catch (err) {
+    toast(err.message || "Google sign-in failed.", "error");
+    renderAuth(state.googleRole === "admin" ? "admin-login" : "student-login");
+  } finally {
+    hideLoadingScreen();
+  }
+}
+
+/* ---------- app shell ---------- */
+async function startApp() {
+  $("#authScreen").classList.add("hidden");
+  const isAdmin = state.user.role === "admin";
+  $("#studentApp").classList.toggle("active", !isAdmin);
+  $("#adminApp").classList.toggle("active", isAdmin);
+  renderSidebar(state.user.role);
+  await go("dashboard");
+}
+
+function renderSidebar(role) {
+  const isAdmin = role === "admin";
+  const target = isAdmin ? $("#adminSidebar") : $("#studentSidebar");
+  const nav = [
+    ["dashboard", "dashboard", "Dashboard"],
+    ["complaints", "report_problem", "Complaints"],
+    ["events", "event", "Events"],
+    ["profile", "person", "Profile"],
+    ["settings", "settings", "Settings"]
+  ];
+  target.innerHTML = `
+    <div class="brand"><div class="text-brand-mark text-brand-mark-side">REC</div><div><strong>REC Campus<span style="font-weight:400">Connect</span></strong><small>${isAdmin ? "Institutional Admin" : "Student Portal"}</small></div></div>
+    <nav class="nav">${nav.map(([route, icon, label]) => `<button type="button" data-route="${route}" class="${state.route === route ? "active" : ""}"><span class="material-symbols-outlined">${icon}</span><span>${label}</span></button>`).join("")}</nav>
+    <div class="side-bottom">
+      <button type="button" class="btn btn-primary btn-block btn-sm" data-action="${isAdmin ? "add-event" : "new-complaint"}"><span class="material-symbols-outlined">add</span><span>${isAdmin ? "Add Event" : "Submit Complaint"}</span></button>
+      <button type="button" class="nav logout-btn" data-action="logout"><span class="material-symbols-outlined">logout</span><span>Logout</span></button>
+    </div>`;
+
+  const name = state.user?.name || "";
+  $(isAdmin ? "#adminUserName" : "#studentUserName").textContent = name;
+  const avatar = $(isAdmin ? "#adminAvatar" : "#studentAvatar");
+  avatar.innerHTML = state.user?.profilePhotoUrl
+    ? `<img src="${esc(mediaUrl(state.user.profilePhotoUrl))}" alt="">`
+    : esc(initials(name));
+}
+
+function toggleSidebar() {
+  const app = state.user?.role === "admin" ? $("#adminApp") : $("#studentApp");
+  app?.classList.toggle("sidebar-open");
+}
+function closeSidebar() {
+  $("#studentApp")?.classList.remove("sidebar-open");
+  $("#adminApp")?.classList.remove("sidebar-open");
+}
+
+async function go(route) {
+  state.route = route;
+  closeSidebar();
+  renderSidebar(state.user.role);
+  const isAdmin = state.user.role === "admin";
+  const page = scope();
+  const title = isAdmin ? $("#adminTopTitle") : $("#studentTopTitle");
+  const labels = { dashboard: "Dashboard", complaints: "Complaints", events: "Events", profile: "Profile", settings: "Settings" };
+  title.textContent = labels[route] || "REC Portal";
+  page.innerHTML = '<div class="card empty"><div class="empty-icon"><span class="material-symbols-outlined">progress_activity</span></div><h3>Loading…</h3></div>';
+  try {
+    if (route === "dashboard") await renderDashboard(page, isAdmin);
+    else if (route === "complaints") await renderComplaints(page, isAdmin);
+    else if (route === "events") await renderEvents(page, isAdmin);
+    else if (route === "profile") await renderProfile(page, isAdmin);
+    else if (route === "settings") renderSettings(page);
+  } catch (err) {
+    page.innerHTML = `<div class="card empty"><div class="empty-icon"><span class="material-symbols-outlined">error</span></div><h3>Could not load this page</h3><p>${esc(err.message)}</p><button type="button" class="btn btn-primary btn-sm" data-action="retry" data-id="${esc(route)}">Try again</button></div>`;
+  }
+}
+
+/* ---------- dashboard ---------- */
+async function renderDashboard(page, isAdmin) {
+  const r = await api("dashboard", { token: state.session });
+  state.user = { ...state.user, ...r.user };
+  saveSession();
+  const s = r.stats || {};
+  const recent = r.recentComplaints || [];
+  const upcoming = r.upcomingEvents || [];
+  const cards = isAdmin
+    ? [["total", "Total Complaints", "report_problem"], ["open", "Open", "pending_actions"], ["inProgress", "In Progress", "autorenew"], ["resolved", "Resolved", "check_circle"]]
+    : [["total", "Total Complaints", "report_problem"], ["resolved", "Resolved", "check_circle"], ["open", "Open", "pending_actions"], ["events", "Upcoming Events", "event"]];
+  const hint = (key) => (isAdmin && key === "open") ? "Needs attention"
+    : key === "resolved" ? "Successfully closed"
+    : key === "events" ? "Published and upcoming"
+    : "Updated from portal data";
+
+  page.innerHTML = `
+    <div class="hero">
+      <div>
+        <div style="font-size:11px;opacity:.75">REC CampusConnect</div>
+        <h1>Welcome back, ${esc((state.user.name || "User").split(" ")[0])}!</h1>
+        <p>${isAdmin ? "Review student complaints, monitor ticket progress and keep campus communication up to date." : "Manage your campus journey, report issues and stay updated with campus events in one place."}</p>
+        ${isAdmin
+          ? '<button type="button" class="btn" data-route="complaints"><span class="material-symbols-outlined">visibility</span>Review Complaints</button>'
+          : '<button type="button" class="btn" data-action="contact-admin"><span class="material-symbols-outlined">support_agent</span>Contact Admin</button>'}
+      </div>
+    </div>
+    <div class="stats">${cards.map(([key, label, icon]) => `
+      <div class="card stat"><div class="stat-top"><span class="muted">${label}</span><span class="icon"><span class="material-symbols-outlined">${icon}</span></span></div><strong>${s[key] ?? 0}</strong><small>${hint(key)}</small></div>`).join("")}
+    </div>
+    <div class="grid-2">
+      <div class="card card-pad">
+        <div class="section-title"><h3>${isAdmin ? "Recent Complaints" : "My Recent Complaints"}</h3><button type="button" class="text-btn" data-route="complaints">View All</button></div>
+        ${recent.length ? recent.map((c) => complaintRow(c, isAdmin)).join("") : `<div class="empty"><div class="empty-icon"><span class="material-symbols-outlined">inbox</span></div><h3>No complaints yet</h3><p>${isAdmin ? "Student complaints will appear here." : "Your submitted complaints will appear here."}</p>${!isAdmin ? '<button type="button" class="btn btn-primary btn-sm" data-action="new-complaint">Submit Complaint</button>' : ""}</div>`}
+      </div>
+      <div class="card card-pad">
+        <div class="section-title"><h3>Recent &amp; Upcoming Events</h3><button type="button" class="text-btn" data-route="events">View All</button></div>
+        ${upcoming.length ? upcoming.slice(0, 5).map(eventMini).join("") : `<div class="empty" style="padding:30px 10px"><div class="empty-icon"><span class="material-symbols-outlined">event_busy</span></div><h3>No recent events</h3><p>Published events will appear here.</p></div>`}
+      </div>
+    </div>`;
+}
+
+function complaintRow(c, isAdmin) {
+  const description = String(c.description || "");
+  return `<div class="complaint-row">
+    <div>
+      <div class="row-meta"><span class="mono">${esc(c.id)}</span><span>•</span><span>${fmtDate(c.createdAt)}</span><span class="badge ${badgeClass(c.status)}">${esc(labelStatus(c.status))}</span></div>
+      <h4>${esc(c.title)}</h4>
+      <p>${esc(description.slice(0, 130))}${description.length > 130 ? "…" : ""}</p>
+      <div class="row-meta"><span>${esc(c.category || "General")}</span>${isAdmin ? `<span>• ${esc(c.studentName || "Student")}</span>` : ""}</div>
+    </div>
+    <button type="button" class="btn btn-light btn-sm" data-action="view-complaint" data-id="${esc(c.id)}">View Details</button>
+  </div>`;
+}
+
+function eventMini(e) {
+  const d = eventDateClient(e.date);
+  return `<div class="event-item">
+    <div class="event-date"><b>${d ? d.toLocaleString("en", { month: "short" }).toUpperCase() : ""}</b><strong>${d ? d.getDate() : "—"}</strong></div>
+    <div><h4>${esc(e.title)}</h4><p>${esc(e.time || "Time TBA")} • ${esc(e.location || "Campus")}</p></div>
+  </div>`;
+}
+
+/* ---------- complaints ---------- */
+async function renderComplaints(page, isAdmin) {
+  const r = await api("listComplaints", { token: state.session, status: "all" });
+  state.complaints = r.complaints || [];
+  const tabs = ["all", "open", "inprogress", "resolved"];
+  page.innerHTML = `
+    <div class="page-head">
+      <div><h1>${isAdmin ? "Complaint Management" : "My Complaints"}</h1><p>${isAdmin ? "Review and manage issues reported by students." : "Track and manage all complaints you have submitted."}</p></div>
+      ${!isAdmin ? '<button type="button" class="btn btn-primary" data-action="new-complaint"><span class="material-symbols-outlined">add</span>New Complaint</button>' : ""}
+    </div>
+    <div class="card table-card">
+      <div class="table-toolbar">
+        <div class="tabs" id="statusTabs">${tabs.map((s) => `<button type="button" class="tab ${state.activeStatus === s ? "active" : ""}" data-action="filter-status" data-id="${s}">${s === "all" ? "All" : labelStatus(s)}</button>`).join("")}</div>
+        <input class="search" id="complaintSearch" placeholder="Search complaints..." aria-label="Search complaints">
+      </div>
+      <div class="list" id="complaintList"></div>
+    </div>`;
+  $("#complaintSearch").addEventListener("input", filterComplaintText);
+  filterComplaintText();
+}
+
+function setStatusFilter(value) {
+  state.activeStatus = value;
+  document.querySelectorAll("#statusTabs .tab").forEach((btn) => btn.classList.toggle("active", btn.dataset.id === value));
+  filterComplaintText();
+}
+
+function filterComplaintText() {
+  const box = $("#complaintList");
+  if (!box) return;
+  const q = ($("#complaintSearch")?.value || "").trim().toLowerCase();
+  const isAdmin = state.user.role === "admin";
+  const list = state.complaints.filter((c) =>
+    (state.activeStatus === "all" || c.status === state.activeStatus) &&
+    (!q || `${c.id} ${c.title || ""} ${c.category || ""} ${c.studentName || ""}`.toLowerCase().includes(q)));
+  box.innerHTML = list.length
+    ? list.map((c) => `<div class="list-item">
+        <div class="list-main">
+          <div class="row-meta"><span class="mono">${esc(c.id)}</span><span class="badge ${badgeClass(c.status)}">${esc(labelStatus(c.status))}</span><span>${esc(c.priority || "Medium")} Priority</span></div>
+          <h4>${esc(c.title)}</h4>
+          <p>${esc(c.category || "General")} • ${fmtDate(c.createdAt)} ${isAdmin ? "• " + esc(c.studentName || "Student") : ""}</p>
+        </div>
+        <div class="actions"><button type="button" class="btn btn-light btn-sm" data-action="view-complaint" data-id="${esc(c.id)}">${isAdmin ? "Review Ticket" : "View Details"}</button></div>
+      </div>`).join("")
+    : `<div class="empty"><div class="empty-icon"><span class="material-symbols-outlined">search_off</span></div><h3>No complaints found</h3><p>Try another filter or search term.</p></div>`;
+}
+
+function openComplaintModal() {
+  openModal(`<div class="modal-backdrop"><div class="modal">
+    <div class="modal-head"><h2>Submit New Complaint</h2><button type="button" class="close" data-action="close-modal" aria-label="Close"><span class="material-symbols-outlined">close</span></button></div>
+    <form id="complaintForm">
+      <div class="modal-body"><div class="form-grid">
+        <div class="field span-2"><label for="c-title">Complaint Title</label><input id="c-title" name="title" required maxlength="150" placeholder="e.g. Hostel Wi-Fi connectivity issue"></div>
+        <div class="field"><label for="c-cat">Category</label><select id="c-cat" name="category"><option>Infrastructure</option><option>Academics</option><option>Maintenance</option><option>Hostel</option><option>Transport</option><option>Library</option><option>IT / Wi-Fi</option><option>Other</option></select></div>
+        <div class="field"><label for="c-prio">Priority</label><select id="c-prio" name="priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select></div>
+        <div class="field span-2"><label for="c-loc">Location</label><input id="c-loc" name="location" maxlength="150" placeholder="Building, room, block or campus location"></div>
+        <div class="field span-2"><label for="c-desc">Description</label><textarea id="c-desc" name="description" required maxlength="3000" placeholder="Explain the issue clearly, including when it started and any useful details."></textarea></div>
+      </div></div>
+      <div class="modal-foot"><button type="button" class="btn btn-light" data-action="close-modal">Cancel</button><button id="complaintSubmit" class="btn btn-primary" type="submit">Submit Complaint</button></div>
+    </form></div></div>`);
+  $("#complaintForm").addEventListener("submit", submitComplaint);
+}
+
+async function submitComplaint(event) {
+  event.preventDefault();
+  const btn = $("#complaintSubmit");
+  setLoading(btn, true);
+  try {
+    const payload = Object.fromEntries(new FormData(event.currentTarget).entries());
+    const r = await api("createComplaint", { token: state.session, complaint: payload });
+    openSuccessModal(r.complaint);
+  } catch (err) {
+    toast(err.message, "error");
+    setLoading(btn, false);
+  }
+}
+
+function openSuccessModal(c) {
+  openModal(`<div class="modal-backdrop"><div class="modal" style="max-width:440px;text-align:center"><div class="modal-body" style="padding:36px 25px">
+    <div class="profile-avatar" style="background:var(--success-bg);color:var(--success)"><span class="material-symbols-outlined" style="font-size:34px">check_circle</span></div>
+    <h2 style="font-size:20px;margin-bottom:6px">Complaint Submitted Successfully</h2>
+    <p class="muted" style="font-size:12px">Your complaint <b class="mono">${esc(c.id)}</b> has been recorded. You can track its status from My Complaints.</p>
+    <button type="button" class="btn btn-primary" data-action="go-complaints">View My Complaints</button>
+  </div></div></div>`);
+}
+
+async function openComplaintDetail(id) {
+  try {
+    const r = await api("getComplaint", { token: state.session, id });
+    const c = r.complaint;
+    const isAdmin = state.user.role === "admin";
+    const history = (c.history || []).map((h) => `<div class="timeline-item"><strong>${esc(h.action)}</strong><p>${esc(h.note || "")} • ${fmtDateTime(h.at)}${h.by ? " · " + esc(h.by) : ""}</p></div>`).join("")
+      || "<p class='muted'>No activity recorded.</p>";
+    const adminForm = isAdmin ? `
+      <div class="field" style="margin-top:15px"><label for="detailStatus">Update Status</label><select id="detailStatus">
+        <option value="open" ${c.status === "open" ? "selected" : ""}>Open</option>
+        <option value="inprogress" ${c.status === "inprogress" ? "selected" : ""}>In Progress</option>
+        <option value="resolved" ${c.status === "resolved" ? "selected" : ""}>Resolved</option></select></div>
+      <div class="field"><label for="detailNote">Admin Note</label><textarea id="detailNote" placeholder="Add a progress/update note..."></textarea></div>
+      <button type="button" class="btn btn-primary btn-block" data-action="save-complaint-update" data-id="${esc(c.id)}">Save Update</button>` : "";
+    openModal(`<div class="modal-backdrop"><div class="modal" style="width:min(900px,100%)">
+      <div class="modal-head"><div><div class="row-meta"><span class="mono">${esc(c.id)}</span><span class="badge ${badgeClass(c.status)}">${esc(labelStatus(c.status))}</span></div><h2 style="margin-top:5px">${esc(c.title)}</h2></div>
+        <button type="button" class="close" data-action="close-modal" aria-label="Close"><span class="material-symbols-outlined">close</span></button></div>
+      <div class="modal-body"><div class="detail-layout">
+        <div>
+          <div class="detail-card card"><p class="detail-copy">${esc(c.description)}</p>
+            <div class="row-meta" style="margin-top:15px"><span>Category: <b>${esc(c.category)}</b></span><span>Priority: <b>${esc(c.priority)}</b></span><span>Location: <b>${esc(c.location || "—")}</b></span></div></div>
+          <div class="detail-card card" style="margin-top:15px"><h3 style="font-size:14px;margin-bottom:12px">Activity</h3><div class="timeline">${history}</div></div>
+        </div>
+        <div><div class="detail-card card"><h3 style="font-size:14px;margin-bottom:12px">Complaint Details</h3>
+          <div class="info-list" style="margin-top:0"><div><span>Student</span><b>${esc(c.studentName)}</b></div><div><span>Submitted</span><b>${fmtDateTime(c.createdAt)}</b></div><div><span>Updated</span><b>${fmtDateTime(c.updatedAt)}</b></div></div>
+          ${complaintContactMarkup(c, isAdmin)}${adminForm}</div></div>
+      </div></div></div></div>`);
+  } catch (err) {
+    toast(err.message, "error");
+  }
+}
+
+function complaintContactMarkup(c, isAdmin) {
+  if (isAdmin) {
+    return `<div class="contact-note"><span class="material-symbols-outlined">visibility</span> You are viewing this complaint as an administrator. The student can see the administrator who last changed the complaint status.</div>`;
+  }
+  const a = c.adminContact;
+  if (!a) {
+    return `<div class="contact-note"><span class="material-symbols-outlined">hourglass_top</span> No administrator has updated this complaint yet. The contact link will appear after an admin changes its status.</div>`;
+  }
+  const email = a.email ? `<a class="btn btn-light btn-sm" href="${esc("mailto:" + a.email)}"><span class="material-symbols-outlined">mail</span>Email ${esc(a.name || "Admin")}</a>` : "";
+  const phone = a.phone ? `<a class="btn btn-light btn-sm" href="${esc("tel:" + a.phone)}"><span class="material-symbols-outlined">call</span>Call</a>` : "";
+  return `<div class="contact-ready"><div><span class="material-symbols-outlined">support_agent</span><div><b>${esc(a.name || "Administrator")}</b><p>${esc(a.action || "Status updated")} · ${fmtDateTime(a.seenAt)}${a.email ? " · " + esc(a.email) : ""}</p></div></div><div class="contact-actions">${email}${phone}</div></div>`;
+}
+
+async function saveComplaintUpdate(id) {
+  const btn = document.querySelector('[data-action="save-complaint-update"]');
+  setLoading(btn, true);
+  try {
+    await api("updateComplaint", { token: state.session, id, status: $("#detailStatus").value, note: $("#detailNote").value });
+    closeModal();
+    toast("Complaint updated.", "success");
+    await go("complaints");
+  } catch (err) {
+    toast(err.message, "error");
+    setLoading(btn, false);
+  }
+}
+
+async function openContactAdmin() {
+  try {
+    const r = await api("listComplaints", { token: state.session, status: "all" });
+    state.complaints = r.complaints || [];
+    const target = state.complaints.find((c) => c.status === "inprogress" && c.adminContact)
+      || state.complaints.find((c) => c.adminContact);
+    if (target) {
+      openComplaintDetail(target.id);
+      return;
+    }
+  } catch (err) {
+    toast(err.message, "error");
+    return;
+  }
+  if (!CONFIG.ADMIN_CONTACT_EMAIL) {
+    toast("No administrator contact is configured.", "error");
+    return;
+  }
+  window.location.href = `mailto:${CONFIG.ADMIN_CONTACT_EMAIL}?subject=${encodeURIComponent("REC CampusConnect - Contact Admin")}`;
+}
+
+/* ---------- events ---------- */
+async function renderEvents(page, isAdmin) {
+  const r = await api("listEvents", { token: state.session });
+  state.events = r.events || [];
+  const today = startOfToday();
+  const stats = isAdmin ? `
+    <div class="stats">
+      <div class="card stat"><div class="stat-top"><span class="muted">Total Events</span><span class="icon"><span class="material-symbols-outlined">event_note</span></span></div><strong>${state.events.length}</strong><small>All event records</small></div>
+      <div class="card stat"><div class="stat-top"><span class="muted">Published</span><span class="icon"><span class="material-symbols-outlined">publish</span></span></div><strong>${state.events.filter((e) => e.status === "published").length}</strong><small>Visible to students</small></div>
+      <div class="card stat"><div class="stat-top"><span class="muted">Drafts</span><span class="icon"><span class="material-symbols-outlined">draft</span></span></div><strong>${state.events.filter((e) => e.status === "draft").length}</strong><small>Not yet published</small></div>
+      <div class="card stat"><div class="stat-top"><span class="muted">Upcoming</span><span class="icon"><span class="material-symbols-outlined">event_upcoming</span></span></div><strong>${state.events.filter((e) => { const d = eventDateClient(e.date); return d && d >= today && e.status === "published"; }).length}</strong><small>Published upcoming</small></div>
+    </div>` : "";
+  page.innerHTML = `
+    <div class="page-head">
+      <div><h1>${isAdmin ? "Events Management" : "Campus Events"}</h1><p>${isAdmin ? "Create and publish notices, events and poster-based announcements." : "View events and notices published by the administration."}</p></div>
+      ${isAdmin ? '<button type="button" class="btn btn-primary" data-action="add-event"><span class="material-symbols-outlined">add</span>Add Event</button>' : ""}
+    </div>
+    ${stats}
+    <div class="event-grid">${state.events.length
+      ? state.events.map((e) => eventCard(e, isAdmin)).join("")
+      : `<div class="card empty" style="grid-column:1/-1"><div class="empty-icon"><span class="material-symbols-outlined">event_busy</span></div><h3>No events available</h3><p>${isAdmin ? "Create your first campus event." : "The administration has not published any events yet."}</p></div>`}
+    </div>`;
+}
+
+function eventCard(e, isAdmin) {
+  const status = e.status || "published";
+  const poster = e.posterUrl
+    ? `<img src="${esc(mediaUrl(e.posterUrl))}" alt="Poster for ${esc(e.title)}" loading="lazy">`
+    : '<span class="material-symbols-outlined" style="font-size:45px">event</span>';
+  const adminButtons = isAdmin ? `<div class="event-actions">
+      <button type="button" class="btn btn-light btn-sm" data-action="edit-event" data-id="${esc(e.id)}">Edit</button>
+      ${status === "draft" ? `<button type="button" class="btn btn-primary btn-sm" data-action="publish-event" data-id="${esc(e.id)}">Publish</button>` : ""}
+      <button type="button" class="btn btn-danger btn-sm" data-action="delete-event" data-id="${esc(e.id)}">Delete</button>
+    </div>` : "";
+  return `<div class="card event-card">
+    <div class="event-cover">${poster}</div>
+    <div class="event-body">
+      <div class="row-meta"><span class="badge ${status === "published" ? "badge-published" : "badge-draft"}">${esc(status)}</span><span>${fmtEventDate(e.date)}</span></div>
+      <h3>${esc(e.title)}</h3>
+      <p>${esc(e.description || "")}</p>
+      <p><span class="material-symbols-outlined" style="font-size:14px">schedule</span> ${esc(e.time || "TBA")} • <span class="material-symbols-outlined" style="font-size:14px">location_on</span> ${esc(e.location || "Campus")}</p>
+      ${adminButtons}
+    </div>
+  </div>`;
+}
+
+function openEventModal(existing = null) {
+  const e = existing || {};
+  const categories = ["Academic", "Placement", "Workshop", "Cultural", "Sports", "General"];
+  openModal(`<div class="modal-backdrop"><div class="modal">
+    <div class="modal-head"><h2>${existing ? "Edit Event" : "Add Event"}</h2><button type="button" class="close" data-action="close-modal" aria-label="Close"><span class="material-symbols-outlined">close</span></button></div>
+    <form id="eventForm"><div class="modal-body"><div class="form-grid">
+      <div class="field span-2"><label for="e-title">Event Title</label><input id="e-title" name="title" required maxlength="150" value="${esc(e.title || "")}" placeholder="Annual Tech Symposium"></div>
+      <div class="field"><label for="e-date">Date</label><input id="e-date" name="date" type="date" required value="${esc(e.date ? String(e.date).slice(0, 10) : "")}"></div>
+      <div class="field"><label for="e-time">Time</label><input id="e-time" name="time" maxlength="50" value="${esc(e.time || "")}" placeholder="09:00 AM - 03:00 PM"></div>
+      <div class="field"><label for="e-loc">Location</label><input id="e-loc" name="location" maxlength="150" value="${esc(e.location || "")}" placeholder="Main Auditorium"></div>
+      <div class="field"><label for="e-cat">Category</label><select id="e-cat" name="category">${categories.map((c) => `<option ${(e.category || "General") === c ? "selected" : ""}>${c}</option>`).join("")}</select></div>
+      <div class="field span-2"><label for="e-desc">Description / Notice</label><textarea id="e-desc" name="description" required maxlength="3000" placeholder="Write the event information students should know.">${esc(e.description || "")}</textarea></div>
+      <div class="field span-2"><label for="eventPoster">Poster (optional)</label><div class="file-box"><input id="eventPoster" type="file" accept="image/png,image/jpeg,image/webp"><div class="muted" style="font-size:10px;margin-top:5px">PNG, JPG or WEBP. Maximum 5 MB.</div></div></div>
+      <div class="field"><label for="e-status">Status</label><select id="e-status" name="status"><option value="draft" ${e.status === "draft" ? "selected" : ""}>Draft</option><option value="published" ${!existing || e.status !== "draft" ? "selected" : ""}>Published</option></select></div>
+    </div></div>
+    <div class="modal-foot"><button type="button" class="btn btn-light" data-action="close-modal">Cancel</button><button id="eventSubmit" class="btn btn-primary" type="submit">${existing ? "Save Changes" : "Create Event"}</button></div></form>
+  </div></div>`);
+  $("#eventForm").addEventListener("submit", (event) => submitEvent(event, existing ? existing.id : ""));
+}
+
+async function submitEvent(event, id) {
+  event.preventDefault();
+  const btn = $("#eventSubmit");
+  setLoading(btn, true);
+  try {
+    const payload = Object.fromEntries(new FormData(event.currentTarget).entries());
+    const file = $("#eventPoster").files[0];
+    if (file) {
+      if (!/^image\/(png|jpeg|webp)$/.test(file.type)) throw new Error("Poster must be a PNG, JPG or WEBP image.");
+      if (file.size > 5 * 1024 * 1024) throw new Error("Poster must be 5 MB or smaller.");
+      payload.poster = await fileToUpload(file);
+    }
+    if (id) payload.id = id;
+    await api(id ? "updateEvent" : "createEvent", { token: state.session, event: payload });
+    closeModal();
+    toast(id ? "Event updated." : "Event created.", "success");
+    await go("events");
+  } catch (err) {
+    toast(err.message, "error");
+    setLoading(btn, false);
+  }
+}
+
+function editEvent(id) {
+  const e = state.events.find((x) => x.id === id);
+  if (e) openEventModal(e);
+}
+
+async function publishEvent(id) {
+  try {
+    await api("updateEvent", { token: state.session, event: { id, status: "published" } });
+    toast("Event published.", "success");
+    await go("events");
+  } catch (err) {
+    toast(err.message, "error");
+  }
+}
+
+async function deleteEvent(id) {
+  if (!confirm("Delete this event? This action cannot be undone.")) return;
+  try {
+    await api("deleteEvent", { token: state.session, id });
+    toast("Event deleted.", "success");
+    await go("events");
+  } catch (err) {
+    toast(err.message, "error");
+  }
+}
+
+/* ---------- profile ---------- */
+async function renderProfile(page, isAdmin) {
+  const r = await api("listComplaints", { token: state.session, status: "all" });
+  const complaints = r.complaints || [];
+  state.complaints = complaints;
+  const u = state.user;
+  const editing = !!state.profileEditing;
+  const disabled = editing ? "" : "disabled";
+  const avatar = u.profilePhotoUrl
+    ? `<img class="profile-photo" src="${esc(mediaUrl(u.profilePhotoUrl))}" alt="Profile photo">`
+    : `<div class="profile-avatar">${esc(initials(u.name))}</div>`;
+  const historyHtml = complaints.length
+    ? complaints.map((c) => `<div class="history-card">
+        <div class="history-top"><div><span class="mono">${esc(c.id)}</span><h4>${esc(c.title)}</h4></div><span class="badge ${badgeClass(c.status)}">${esc(labelStatus(c.status))}</span></div>
+        <div class="row-meta"><span>Registered ${fmtDateTime(c.createdAt)}</span><span>Last update ${fmtDateTime(c.updatedAt)}</span><span>${esc(c.category || "General")}</span></div>
+        <p>${esc(String(c.description || "").slice(0, 180))}${String(c.description || "").length > 180 ? "…" : ""}</p>
+        <div class="history-line">${(c.history || []).slice(-3).map((h) => `<span><b>${esc(h.action)}</b> · ${fmtDateTime(h.at)}</span>`).join("")}</div>
+        <button type="button" class="btn btn-light btn-sm" data-action="view-complaint" data-id="${esc(c.id)}">View full history</button>
+      </div>`).join("")
+    : `<div class="empty"><div class="empty-icon"><span class="material-symbols-outlined">history</span></div><h3>No complaints registered</h3><p>Your complaint dates, updates and resolution status will appear here.</p>${!isAdmin ? '<button type="button" class="btn btn-primary btn-sm" data-action="new-complaint">Register a Complaint</button>' : ""}</div>`;
+
+  page.innerHTML = `
+    <div class="page-head">
+      <div><h1>${isAdmin ? "Admin Profile" : "Student Profile"}</h1><p>${editing ? "Edit mode is on. Update the fields and save when you are finished." : "Your account overview, contact details and complaint history."}</p></div>
+      <button type="button" class="btn ${editing ? "btn-light" : "btn-primary"}" data-action="toggle-profile-edit"><span class="material-symbols-outlined">${editing ? "close" : "edit"}</span>${editing ? "Cancel Edit" : "Edit Profile"}</button>
+    </div>
+    <div class="profile-grid">
+      <div class="card profile-card">
+        <div class="profile-photo-wrap">${avatar}</div>
+        <label class="btn btn-light btn-sm photo-label"><span class="material-symbols-outlined">photo_camera</span>${u.profilePhotoUrl ? "Change Photo" : "Add Profile Photo"}<input id="profilePhotoInput" type="file" accept="image/png,image/jpeg,image/webp" hidden></label>
+        <h2>${esc(u.name)}</h2>
+        <p>${esc(u.email)}</p>
+        <span class="badge badge-resolved">${isAdmin ? "Administrator" : "Active Student"}</span>
+        <div class="info-list">
+          <div><span>ID</span><b>${esc(u.rollNo || u.employeeId || u.id || "—")}</b></div>
+          <div><span>Department</span><b>${esc(u.department || "—")}</b></div>
+          <div><span>${isAdmin ? "Role" : "Year"}</span><b>${esc(isAdmin ? "Admin" : u.year || "—")}</b></div>
+          <div><span>Complaints registered</span><b>${complaints.length}</b></div>
+        </div>
+      </div>
+      <div class="card card-pad" id="profileEditor">
+        <div class="section-title"><h3>Personal Information</h3><span class="muted">Account ID: ${esc(u.id)}</span></div>
+        <div class="form-grid">
+          <div class="field"><label for="pName">Full Name</label><input id="pName" value="${esc(u.name)}" ${disabled}></div>
+          <div class="field"><label for="pPhone">Phone</label><input id="pPhone" value="${esc(u.phone || "")}" ${disabled}></div>
+          <div class="field"><label for="pDept">Department</label><input id="pDept" value="${esc(u.department || "")}" ${disabled}></div>
+          <div class="field"><label for="pId">${isAdmin ? "Employee ID" : "Roll / Register No."}</label><input id="pId" value="${esc(u.rollNo || u.employeeId || "")}" ${disabled}></div>
+          ${!isAdmin ? `<div class="field"><label for="pYear">Year</label><select id="pYear" ${disabled}>
+            <option value="" ${!u.year ? "selected" : ""}>Not set</option>
+            ${["1st Year", "2nd Year", "3rd Year", "4th Year"].map((y) => `<option ${u.year === y ? "selected" : ""}>${y}</option>`).join("")}</select></div>` : ""}
+          <div class="field"><label for="pEmail">Email</label><input id="pEmail" value="${esc(u.email)}" disabled></div>
+        </div>
+        ${editing
+          ? '<div class="profile-actions"><button type="button" class="btn btn-light" data-action="toggle-profile-edit">Cancel</button><button type="button" class="btn btn-primary" data-action="save-profile">Save Changes</button></div>'
+          : '<p class="muted profile-readonly-note"><span class="material-symbols-outlined">lock</span> Profile fields are read-only until you click Edit Profile.</p>'}
+      </div>
+    </div>
+    <div class="card card-pad complaint-history">
+      <div class="section-title"><div><h3>Complaint History</h3><p class="muted">Every complaint you registered, its dates, updates and current resolution status.</p></div><strong class="history-count">${complaints.length}</strong></div>
+      <div>${historyHtml}</div>
+    </div>`;
+  $("#profilePhotoInput").addEventListener("change", handleProfilePhoto);
+}
+
+function toggleProfileEdit() {
+  state.profileEditing = !state.profileEditing;
+  go("profile");
+}
+
+async function saveProfile() {
+  const btn = document.querySelector('[data-action="save-profile"]');
+  setLoading(btn, true);
+  try {
+    const root = scope();
+    const profile = {
+      name: root.querySelector("#pName").value,
+      phone: root.querySelector("#pPhone").value,
+      department: root.querySelector("#pDept").value,
+      identifier: root.querySelector("#pId").value
+    };
+    const year = root.querySelector("#pYear");
+    if (year) profile.year = year.value;
+    const r = await api("updateProfile", { token: state.session, profile });
+    state.user = { ...state.user, ...r.user };
+    state.profileEditing = false;
+    saveSession();
+    toast("Profile updated.", "success");
+    await go("profile");
+  } catch (err) {
+    toast(err.message, "error");
+    setLoading(btn, false);
+  }
+}
+
+async function handleProfilePhoto(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) {
+    toast("Please choose a PNG, JPG or WEBP image.", "error");
+    return;
+  }
+  if (file.size > 3 * 1024 * 1024) {
+    toast("Profile photo must be 3 MB or smaller.", "error");
+    return;
+  }
+  try {
+    const upload = await fileToUpload(file);
+    const r = await api("updateProfile", { token: state.session, profile: { profilePhoto: upload } });
+    state.user = { ...state.user, ...r.user };
+    saveSession();
+    toast("Profile photo updated.", "success");
+    await go("profile");
+  } catch (err) {
+    toast(err.message || "Unable to update profile photo.", "error");
+  }
+}
+
+/* ---------- settings ---------- */
+function renderSettings(page) {
+  const s = state.user.settings || {};
+  const toggle = (key, label, description) => `<div class="toggle-row">
+      <div><b style="font-size:13px">${label}</b><p>${description}</p></div>
+      <button type="button" class="switch ${s[key] !== false ? "on" : ""}" data-action="toggle-setting" data-setting="${key}" aria-label="${label}"><i></i></button>
+    </div>`;
+  page.innerHTML = `
+    <div class="page-head"><div><h1>Account Settings</h1><p>Manage your account, notifications and security preferences.</p></div></div>
+    <div class="card">
+      <div class="settings-section">
+        <h3>Account &amp; Security</h3>
+        <div class="form-grid">
+          <div class="field"><label>Full Name</label><input value="${esc(state.user.name)}" disabled></div>
+          <div class="field"><label>Primary Email</label><input value="${esc(state.user.email)}" disabled></div>
+        </div>
+        <button type="button" class="btn btn-light btn-sm" data-action="open-password">Change Password</button>
+      </div>
+      <div class="settings-section">
+        <h3>Notification Preferences</h3>
+        ${toggle("systemAlerts", "System Alerts", "Important portal, maintenance and security notifications.")}
+        ${toggle("complaintUpdates", "Complaint Updates", "Receive in-app notifications when complaint status changes.")}
+        ${toggle("eventInvitations", "Event Notifications", "Get notified when new campus events are published.")}
+      </div>
+      <div class="settings-section">
+        <h3>Privacy</h3>
+        ${toggle("directoryVisibility", "Directory Visibility", "Allow your basic profile information to appear in the portal directory.")}
+      </div>
+      <div class="settings-section" style="display:flex;justify-content:flex-end;gap:8px">
+        <button type="button" class="btn btn-primary" data-action="save-settings">Save Changes</button>
+      </div>
+    </div>`;
+}
+
+async function saveSettings() {
+  const settings = {};
+  scope().querySelectorAll(".switch[data-setting]").forEach((el) => {
+    settings[el.dataset.setting] = el.classList.contains("on");
+  });
+  try {
+    const r = await api("updateSettings", { token: state.session, settings });
+    state.user = { ...state.user, settings: r.settings };
+    saveSession();
+    toast("Settings saved.", "success");
+  } catch (err) {
+    toast(err.message, "error");
+  }
+}
+
+function openPasswordModal() {
+  openModal(`<div class="modal-backdrop"><div class="modal" style="max-width:480px">
+    <div class="modal-head"><h2>Change Password</h2><button type="button" class="close" data-action="close-modal" aria-label="Close"><span class="material-symbols-outlined">close</span></button></div>
+    <form id="pwForm"><div class="modal-body">
+      <div class="field"><label for="pw-current">Current Password</label><input id="pw-current" name="currentPassword" type="password" required autocomplete="current-password"></div>
+      <div class="field"><label for="pw-new">New Password</label><input id="pw-new" name="newPassword" type="password" minlength="6" required autocomplete="new-password"></div>
+      <div class="field"><label for="pw-confirm">Confirm New Password</label><input id="pw-confirm" name="confirmPassword" type="password" minlength="6" required autocomplete="new-password"></div>
+    </div><div class="modal-foot"><button type="button" class="btn btn-light" data-action="close-modal">Cancel</button><button class="btn btn-primary" type="submit">Update Password</button></div></form>
+  </div></div>`);
+  $("#pwForm").addEventListener("submit", changePasswordSubmit);
+}
+
+async function changePasswordSubmit(event) {
+  event.preventDefault();
+  const data = Object.fromEntries(new FormData(event.currentTarget).entries());
+  if (data.newPassword !== data.confirmPassword) {
+    toast("New passwords do not match.", "error");
+    return;
+  }
+  try {
+    await api("changePassword", { token: state.session, currentPassword: data.currentPassword, newPassword: data.newPassword });
+    closeModal();
+    toast("Password changed. Please log in again.", "success");
+    clearSession();
+    renderAuth("choice");
+  } catch (err) {
+    toast(err.message, "error");
+  }
+}
+
+/* ---------- modal and session helpers ---------- */
+function openModal(html) { $("#modalRoot").innerHTML = html; }
+function closeModal() { $("#modalRoot").innerHTML = ""; }
+
+async function logout() {
+  try {
+    if (state.session) await api("logout", { token: state.session });
+  } catch (err) {
+    // The server session may already be gone. Logging out locally is still correct.
+  }
+  clearSession();
+  renderAuth("choice");
+}
+
+/* ---------- click handling (one place for every button) ---------- */
+const ACTIONS = {
+  "show-auth": (id) => renderAuth(id),
+  "forgot-password": () => toast("Password reset is handled by the portal administrator."),
+  "google-not-set": () => toast("Google sign-in is not set up yet. Set GOOGLE_CLIENT_ID in config.js.", "error"),
+  "logout": () => logout(),
+  "toggle-sidebar": () => toggleSidebar(),
+  "close-sidebar": () => closeSidebar(),
+  "close-modal": () => closeModal(),
+  "retry": (id) => go(id),
+  "new-complaint": () => openComplaintModal(),
+  "view-complaint": (id) => openComplaintDetail(id),
+  "save-complaint-update": (id) => saveComplaintUpdate(id),
+  "contact-admin": () => openContactAdmin(),
+  "go-complaints": () => { closeModal(); go("complaints"); },
+  "filter-status": (id) => setStatusFilter(id),
+  "add-event": () => openEventModal(),
+  "edit-event": (id) => editEvent(id),
+  "publish-event": (id) => publishEvent(id),
+  "delete-event": (id) => deleteEvent(id),
+  "toggle-setting": (_id, el) => el.classList.toggle("on"),
+  "save-settings": () => saveSettings(),
+  "open-password": () => openPasswordModal(),
+  "toggle-profile-edit": () => toggleProfileEdit(),
+  "save-profile": () => saveProfile()
+};
+
+document.addEventListener("click", (event) => {
+  if (event.target.classList && event.target.classList.contains("modal-backdrop")) {
+    closeModal();
+    return;
+  }
+  const el = event.target.closest("[data-route],[data-action]");
+  if (!el || el.disabled) return;
+  if (el.dataset.route) {
+    go(el.dataset.route);
+    return;
+  }
+  const handler = ACTIONS[el.dataset.action];
+  if (handler) handler(el.dataset.id, el);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeModal();
+    closeSidebar();
+  }
+});
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 760) closeSidebar();
+});
+
+/* ---------- start ---------- */
+async function initPortal() {
+  if (!loadSession()) {
+    renderAuth("choice");
+    hideLoadingScreen();
+    return;
+  }
+  try {
+    const r = await api("me", { token: state.session });
+    state.user = { ...state.user, ...r.user };
+    saveSession();
+    await startApp();
+  } catch (err) {
+    if (err.status !== 401) toast(err.message || "Unable to load the portal.", "error");
+    renderAuth("choice");
+  } finally {
+    hideLoadingScreen();
+  }
+}
+
+window.setTimeout(initPortal, 420);
+</script>
+</body>
+</html>

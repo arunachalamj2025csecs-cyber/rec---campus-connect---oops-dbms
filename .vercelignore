@@ -1,0 +1,9 @@
+backend/
+scripts/
+docs/
+docker-compose.yml
+Dockerfile
+.env.example
+.git
+*.md
+BUGS_REPORT.md
